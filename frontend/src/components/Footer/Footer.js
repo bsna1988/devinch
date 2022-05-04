@@ -1,6 +1,6 @@
 import React from "react";
 import "./Footer.scss";
-const Header = () => (
+const Footer = () => (
   <footer>
     <div class="footer-bottom-area">
       <div class="container">
@@ -34,4 +34,4 @@ const Header = () => (
     </div>
   </footer>
 );
-export default Header;
+export default Footer;

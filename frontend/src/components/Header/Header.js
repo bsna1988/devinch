@@ -34,9 +34,6 @@ const Header = () => (
                         <a href="index.html">Home</a>
                       </li>
                       <li>
-                        <a href="events.html">Events</a>
-                      </li>
-                      <li>
                         <a href="discussions.html">Discussions</a>
                       </li>
                       <li>
