@@ -3,7 +3,7 @@ import { TopicService } from './topic.service';
 import { CreateTopicDto } from './dto/create-topic.dto';
 import { UpdateTopicDto } from './dto/update-topic.dto';
 
-@Controller('topic')
+@Controller('api/topic')
 export class TopicController {
   constructor(private readonly topicService: TopicService) {}
 
