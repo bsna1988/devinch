@@ -1,19 +1,29 @@
 import React from "react";
+import Pagination from "../Pagination/Pagination";
+import Categories from "../Categories/Categories";
 import "./Discussions.scss";
 import API from "../../API";
 
 export default class Discussions extends React.Component {
   state = {
-    discussions: [],
+    posts: [],
+    offset: 0,
+    limit: 10,
+    totalCount: 0,
   };
 
   componentDidMount() {
-    this.getDiscussions();
+    this.getPosts();
   }
 
-  getDiscussions = async () => {
-    let res = await API.get("discussions");
-    this.setState({ topics: res.data });
+  getPosts = async () => {
+    let res = await API.get("post");
+    this.setState({
+      posts: res.data.posts,
+      offset: res.data.offset,
+      limit: res.data.limit,
+      totalCount: res.data.totalCount,
+    });
   };
 
   render() {
@@ -23,25 +33,24 @@ export default class Discussions extends React.Component {
           <div class="row">
             <div class="col-lg-8 mb-5 mb-lg-0">
               <div class="blog_left_sidebar">
-                {this.state.discussions.map((e, i) => {
+                {this.state.posts.map((e, i) => {
                   return (
                     <article class="blog_item">
                       <div class="blog_details">
                         <a class="d-inline-block" href="single-blog.html">
                           <h2>{e.title}</h2>
                         </a>
-                        <p>
-                         {e.description}
-                        </p>
+                        <p>{e.description}</p>
                         <ul class="blog-info-link">
                           <li>
                             <a href="#">
-                              <i class="fa fa-user"></i> {e.tags}
+                              <i class="fa fa-user"></i> {e.author}
                             </a>
                           </li>
                           <li>
                             <a href="#">
-                              <i class="fa fa-comments"></i> {e.commentsCount} Comments
+                              <i class="fa fa-comments"></i> {e.commentsCount}{" "}
+                              Comments
                             </a>
                           </li>
                         </ul>
@@ -49,30 +58,11 @@ export default class Discussions extends React.Component {
                     </article>
                   );
                 })}
-                <nav class="blog-pagination justify-content-center d-flex">
-                  <ul class="pagination">
-                    <li class="page-item">
-                      <a href="#" class="page-link" aria-label="Previous">
-                        <i class="ti-angle-left"></i>
-                      </a>
-                    </li>
-                    <li class="page-item">
-                      <a href="#" class="page-link">
-                        1
-                      </a>
-                    </li>
-                    <li class="page-item active">
-                      <a href="#" class="page-link">
-                        2
-                      </a>
-                    </li>
-                    <li class="page-item">
-                      <a href="#" class="page-link" aria-label="Next">
-                        <i class="ti-angle-right"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+                <Pagination
+                  offset={this.state.offset}
+                  limit={this.state.limit}
+                  totalCount={this.state.totalCount}
+                />
               </div>
             </div>
             <div class="col-lg-4">
@@ -104,29 +94,7 @@ export default class Discussions extends React.Component {
                   </form>
                 </aside>
 
-                <aside class="single_sidebar_widget post_category_widget">
-                  <h4 class="widget_title">Category</h4>
-                  <ul class="list cat-list">
-                    <li>
-                      <a href="#" class="d-flex">
-                        <p>Technology</p>
-                        <p>(37)</p>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="d-flex">
-                        <p>Life in Switzerland</p>
-                        <p>(10)</p>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="d-flex">
-                        <p>Housing</p>
-                        <p>(03)</p>
-                      </a>
-                    </li>
-                  </ul>
-                </aside>
+                <Categories />
               </div>
             </div>
           </div>

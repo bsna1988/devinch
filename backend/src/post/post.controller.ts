@@ -13,8 +13,8 @@ export class PostController {
   }
 
   @Get()
-  findAll() {
-    return this.postService.findAll();
+  find(offset?: number, limit?: number) {
+    return this.postService.find(offset, limit);
   }
 
   @Get(':id')

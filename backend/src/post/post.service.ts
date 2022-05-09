@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { off } from 'process';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './entities/post.entity';
@@ -9,21 +10,33 @@ export class PostService {
     return 'This action adds a new discussion';
   }
 
-  findAll() {
+  find(offset?: number, limit?: number) {
     let post1 = new Post();
-    post1.id = "1";
-    post1.title = "This is the first discussion";
-    post1.description = "Here we will discuss how we can make more discussions on this web site";
-    post1.tags = ["tag1", "tag2"]
-    return [post1];
+    post1.id = '1';
+    post1.title = 'This is the first discussion';
+    post1.description =
+      'Here we will discuss how we can make more discussions on this web site';
+    post1.author = 'admin';
+    post1.commentsCount = 0;
+
+    let totalCount = 1;
+    
+    return {
+      posts: [post1],
+      offset: offset,
+      limit: limit,
+      totalCount: totalCount,
+    };
   }
 
   findOne(id: number) {
     let post1 = new Post();
-    post1.id = "1";
-    post1.title = "This is the first discussion";
-    post1.description = "Here we will discuss how we can make more discussions on this web site";
-    post1.tags = ["tag1", "tag2"]
+    post1.id = '1';
+    post1.title = 'This is the first discussion';
+    post1.description =
+      'Here we will discuss how we can make more discussions on this web site';
+    post1.author = 'admin';
+    post1.commentsCount = 0;
     return post1;
   }
 
