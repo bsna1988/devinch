@@ -8,16 +8,16 @@ export default class Discussions extends React.Component {
   state = {
     posts: [],
     offset: 0,
-    limit: 10,
+    limit: 1,
     totalCount: 0,
   };
 
   componentDidMount() {
-    this.getPosts();
+    this.getPosts(0, 1);
   }
 
-  getPosts = async () => {
-    let res = await API.get("post");
+  getPosts = async (offset, limit) => {
+    let res = await API.get(`post?offset=${offset}&limit=${limit}`);
     this.setState({
       posts: res.data.posts,
       offset: res.data.offset,
@@ -62,6 +62,7 @@ export default class Discussions extends React.Component {
                   offset={this.state.offset}
                   limit={this.state.limit}
                   totalCount={this.state.totalCount}
+                  load={this.getPosts}
                 />
               </div>
             </div>

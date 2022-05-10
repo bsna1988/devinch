@@ -19,10 +19,18 @@ export class PostService {
     post1.author = 'admin';
     post1.commentsCount = 0;
 
-    let totalCount = 1;
-    
+    let post2 = new Post();
+    post2.id = '2';
+    post2.title = 'This is the second discussion';
+    post2.description =
+      'Here we will discuss how we can make more discussions on this web site';
+    post2.author = 'admin';
+    post2.commentsCount = 0;
+
+    let totalCount = 2;
+
     return {
-      posts: [post1],
+      posts: [offset > 0 ? post2 : post1],
       offset: offset,
       limit: limit,
       totalCount: totalCount,
