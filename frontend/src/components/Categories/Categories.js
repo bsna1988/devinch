@@ -23,7 +23,7 @@ export default class Categories extends React.Component {
         <ul class="list cat-list">
           {this.state.categories.map((e, i) => {
             return (
-              <li>
+              <li key={e.title}>
                 <a href="#" class="d-flex">
                   <p>{e.title}</p>
                   <p>({e.count})</p>

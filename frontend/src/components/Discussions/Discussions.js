@@ -35,7 +35,7 @@ export default class Discussions extends React.Component {
               <div class="blog_left_sidebar">
                 {this.state.posts.map((e, i) => {
                   return (
-                    <article class="blog_item">
+                    <article class="blog_item" key={e.id}>
                       <div class="blog_details">
                         <a class="d-inline-block" href="single-blog.html">
                           <h2>{e.title}</h2>
