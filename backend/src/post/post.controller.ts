@@ -22,8 +22,12 @@ export class PostController {
   }
 
   @Get()
-  find(@Query('offset') offset?: number, @Query('limit') limit?: number) {
-    return this.postService.find(offset, limit);
+  find(
+    @Query('search') searchText?: string,
+    @Query('offset') offset?: number,
+    @Query('limit') limit?: number,
+  ) {
+    return this.postService.find(searchText, offset, limit);
   }
 
   @Get(':id')

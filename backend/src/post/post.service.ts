@@ -10,7 +10,7 @@ export class PostService {
     return 'This action adds a new discussion';
   }
 
-  find(offset?: number, limit?: number) {
+  find(searchText?: string, offset?: number, limit?: number) {
     let post1 = new Post();
     post1.id = '1';
     post1.title = 'This is the first discussion';
