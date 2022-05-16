@@ -23,12 +23,16 @@ export default class Pagination extends React.Component {
   }
 
   prev() {
-    console.log("Prev");
+    this.props.load(
+      Math.max(0, this.state.currentPage - 2) *
+        this.props.limit,
+      this.props.limit
+    );
   }
 
   next() {
     this.props.load(
-      Math.min(this.state.pageCount, this.state.currentPage + 1) *
+      Math.min(this.state.pages.length - 1, this.state.currentPage) *
         this.props.limit,
       this.props.limit
     );
