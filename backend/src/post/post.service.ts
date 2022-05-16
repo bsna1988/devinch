@@ -1,44 +1,40 @@
 import { Injectable } from '@nestjs/common';
-import { off } from 'process';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './entities/post.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, Like } from 'typeorm';
+import { PostDTO } from './dto/post.dto';
 
 @Injectable()
 export class PostService {
+  constructor(
+    @InjectRepository(Post)
+    private postRepository: Repository<Post>,
+  ) {}
+
   create(createPostDto: CreatePostDto) {
     return 'This action adds a new discussion';
   }
 
-  find(
+  async search(
     searchText?: string,
     category?: string,
-    offset?: number,
-    limit?: number,
+    offset: number = 0,
+    limit: number = 10,
   ) {
-    let post1 = new Post();
-    post1.id = '1';
-    post1.title = 'This is the first discussion';
-    post1.description =
-      'Here we will discuss how we can make more discussions on this web site';
-    post1.author = 'admin';
-    post1.commentsCount = 0;
-
-    let post2 = new Post();
-    post2.id = '2';
-    post2.title = 'This is the second discussion';
-    post2.description =
-      'Here we will discuss how we can make more discussions on this web site';
-    post2.author = 'admin';
-    post2.commentsCount = 0;
-
-    let totalCount = 2;
+    const [result, total] = await this.postRepository.findAndCount({
+      where: { title: Like('%' + searchText + '%') },
+      order: { created: 'DESC' },
+      take: limit,
+      skip: offset,
+    });
 
     return {
-      posts: [offset > 0 ? post2 : post1],
+      posts: result,
       offset: offset,
       limit: limit,
-      totalCount: totalCount,
+      totalCount: total,
     };
   }
 
@@ -49,8 +45,8 @@ export class PostService {
     post1.description =
       'Here we will discuss how we can make more discussions on this web site';
     post1.author = 'admin';
-    post1.commentsCount = 0;
-    return post1;
+
+    return PostDTO.fromEntity(post1);
   }
 
   update(id: number, updatePostDto: UpdatePostDto) {
