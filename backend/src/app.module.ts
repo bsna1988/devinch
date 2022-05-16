@@ -19,7 +19,7 @@ require('dotenv').config();
       password: process.env.DB_PASSWORD,
       database: process.env.devinch,
       entities: [Post],
-      synchronize: true,
+      synchronize: false,
     }),
   ],
 })
