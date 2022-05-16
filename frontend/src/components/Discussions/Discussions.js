@@ -8,6 +8,8 @@ import API from "../../API";
 export default class Discussions extends React.Component {
   state = {
     posts: [],
+    searchText: "",
+    category: "",
     offset: 0,
     limit: 1,
     totalCount: 0,
@@ -34,6 +36,23 @@ export default class Discussions extends React.Component {
     );
     this.setState({
       posts: res.data.posts,
+      searchText: searchText,
+      category: "",
+      offset: res.data.offset,
+      limit: res.data.limit,
+      totalCount: res.data.totalCount,
+    });
+  };
+
+  selectCategory = async (category, offset = 0, limit = 10) => {
+    console.log("Category " + category);
+    let res = await API.get(
+      `post?category=${category}&offset=${offset}&limit=${limit}`
+    );
+    this.setState({
+      posts: res.data.posts,
+      searchText: "",
+      category: category,
       offset: res.data.offset,
       limit: res.data.limit,
       totalCount: res.data.totalCount,
@@ -83,7 +102,7 @@ export default class Discussions extends React.Component {
             <div class="col-lg-4">
               <div class="blog_right_sidebar">
                 <SearchPost search={this.searchPosts} />
-                <Categories />
+                <Categories selectCategory={this.selectCategory} />
               </div>
             </div>
           </div>

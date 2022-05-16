@@ -24,10 +24,11 @@ export class PostController {
   @Get()
   find(
     @Query('search') searchText?: string,
+    @Query('category') category?: string,
     @Query('offset') offset?: number,
     @Query('limit') limit?: number,
   ) {
-    return this.postService.find(searchText, offset, limit);
+    return this.postService.find(searchText, category, offset, limit);
   }
 
   @Get(':id')

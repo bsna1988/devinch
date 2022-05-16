@@ -16,6 +16,10 @@ export default class Categories extends React.Component {
     this.setState({ categories: res.data });
   };
 
+  selectCategory = async (category) => {
+    this.props.selectCategory(category);
+  }
+
   render() {
     return (
       <aside class="single_sidebar_widget post_category_widget">
@@ -24,7 +28,7 @@ export default class Categories extends React.Component {
           {this.state.categories.map((e, i) => {
             return (
               <li key={e.title}>
-                <a href="#" class="d-flex">
+                <a href="#" class="d-flex" onClick={ () => this.selectCategory(e.title)}>
                   <p>{e.title}</p>
                   <p>({e.count})</p>
                 </a>
