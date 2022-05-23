@@ -5,13 +5,15 @@ import Header from "../../components/Header/Header";
 import Preloader from "../../components/Preloader/Preloader";
 
 class PostPage extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
-    const { id } = this.props.match.params;
     return (
       <div className="App">
         <Preloader />
         <Header />
-        <Post id={id} />
+        <Post id={this.props.params.id} />
         <Footer />
       </div>
     );
