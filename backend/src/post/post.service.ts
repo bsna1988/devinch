@@ -18,7 +18,7 @@ export class PostService {
   }
 
   async search(
-    searchText?: string,
+    searchText: string = '',
     category?: string,
     offset: number = 0,
     limit: number = 10,
