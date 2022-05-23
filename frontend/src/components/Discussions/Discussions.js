@@ -70,7 +70,7 @@ export default class Discussions extends React.Component {
                   return (
                     <article class="blog_item" key={e.id}>
                       <div class="blog_details">
-                        <a class="d-inline-block" href="single-blog.html">
+                        <a class="d-inline-block" href={`/post/${e.id}`}>
                           <h2>{e.title}</h2>
                         </a>
                         <p>{e.description}</p>
